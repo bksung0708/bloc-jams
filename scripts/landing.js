@@ -8,7 +8,8 @@
          points[index].style.msTransform = "scaleX(1) translateY(0)";
          points[index].style.WebkitTransform = "scaleX(1) translateY(0)";
      }
-
+     
+     forEach(points, revealPoint);
      for(var i = 0; i < points.length; i++) {
          revealPoint(i);
      }
@@ -19,6 +20,7 @@
          animatePoints(pointsArray);
      }
      var sellingPoints = document.getElementsByClassName('selling-points')[0];
+     console.log(document.getElementsByClassName('selling-points'));
      var scrollDistance = sellingPoints.getBoundingClientRect().top - window.innerHeight + 200;
 
      window.addEventListener("scroll", function(event) {
