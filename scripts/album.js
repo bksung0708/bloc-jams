@@ -28,6 +28,21 @@
      ]
  };
 
+var albumBeekay = {
+    title: 'Step by Step',
+    artist: 'Beekay',
+    label: 'Skystep',
+    year: '2016',
+    albumArtUrl: 'assets/images/album_covers/18.png',
+    songs: [
+        { title: 'Interlude', duration: '1:30'},
+        { title: 'Stars', duration: '3:15'},
+        { title: 'Fly High', duration: '3:52'},
+        { title: 'Step by Step', duration: '4:26'},
+        { title: 'Regret', duration: '4:01'}
+    ]
+};
+
  var createSongRow = function(songNumber, songName, songLength) {
      var template =
         '<tr class="album-view-song-item">'
@@ -65,4 +80,9 @@
  
  window.onload = function() {
      setCurrentAlbum(albumPicasso);
+     
+     var input = document.getElementsByClassName('album-cover-art')[0];
+     input.addEventListener("click", function() {
+         setCurrentAlbum(albumMarconi)//not sure how to set multiples of clicks... spent a lot of time one this
+     });
  };
