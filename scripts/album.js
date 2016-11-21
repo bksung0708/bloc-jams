@@ -77,12 +77,21 @@ var albumBeekay = {
          albumSongList.innerHTML += createSongRow(i + 1, album.songs[i].title, album.songs[i].duration);
      }
  };
- 
+
+ var albumArray = [albumPicasso, albumMarconi, albumBeekay];
+
  window.onload = function() {
-     setCurrentAlbum(albumPicasso);
+     var currentAlbumIndex = 0;
+     setCurrentAlbum(albumArray[currentAlbumIndex]);
      
      var input = document.getElementsByClassName('album-cover-art')[0];
      input.addEventListener("click", function() {
-         setCurrentAlbum(albumMarconi)//not sure how to set multiples of clicks... spent a lot of time one this
+         if(currentAlbumIndex >= albumArray.length - 1) {
+             currentAlbumIndex = 0;
+         }
+         else {
+            currentAlbumIndex++;
+         }
+         setCurrentAlbum(albumArray[currentAlbumIndex]);
      });
  };
