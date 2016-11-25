@@ -71,9 +71,9 @@
          }
          while(currentElement.className !== parentClassName && currentElement != null) {
              currentElement = currentElement.parentElement;
-             if(currentElement == null) {
+         }
+         if(currentElement == null) {
                  return alert("No parent found with that class name.");
-             }
          }
          return currentElement;
      }
