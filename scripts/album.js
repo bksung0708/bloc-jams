@@ -94,6 +94,39 @@
      $('.main-controls .play-pause').html(playerBarPauseButton);
  };
 
+/*
+
+Know what the previous song is. This includes the situation in which the next song is the first song, following the final song in the album (that is, it should "wrap" around).
+Use the trackIndex() helper function to get the index of the current song and then increment the value of the index.
+Set a new current song to currentSongFromAlbum.
+Update the player bar to show the new song.
+Update the HTML of the previous song's .song-item-number element with a number.
+Update the HTML of the new song's .song-item-number element with a pause button.
+
+*/
+
+ var nextSong = function() {
+     var songIndex = trackIndex(currentAlbum, currentSongFromAlbum);
+     var previousSongObject = currentSongFromAlbum;
+     
+     if (songIndex >= currentAlbum.songs.length - 1) {
+         songIndex = 0;
+         currentlyPlayingSongNumber = 1;
+     }
+     else {
+         songIndex++;
+         currentlyPlayingSongNumber++;
+     }
+     
+     currentSongFromAlbum = currentAlbum.songs[songIndex];
+     updatePlayerBarSong();
+     
+     var previouslyPlayingSongElement = $('.song-item-number[data-song-number="' + (songIndex) + '"]');
+     previouslyPlayingSongElement.html(songIndex);
+     var currentlyPlayingSongElement = $('.song-item-number[data-song-number="' + (currentlyPlayingSongNumber) + '"]');
+     currentlyPlayingSongElement.html(pauseButtonTemplate);
+ };
+
  var playButtonTemplate = '<a class="album-song-button"><span class="ion-play"></span></a>';
  var pauseButtonTemplate = '<a class="album-song-button"><span class="ion-pause"></span></a>';
  var playerBarPlayButton = '<span class="ion-play"></span>';
