@@ -133,6 +133,35 @@ Update the HTML of the new song's .song-item-number element with a pause button.
      var currentlyPlayingSongElement = $('.song-item-number[data-song-number="' + (currentlyPlayingSongNumber) + '"]');
      currentlyPlayingSongElement.html(pauseButtonTemplate);
  };
+ 
+ var previousSong = function () {
+     var songIndex = trackIndex(currentAlbum, currentSongFromAlbum);
+     var lastSongNumber = currentlyPlayingSongNumber + 1;
+     
+     if (songIndex <= 0) {
+         lastSongNumber = 1;
+         songIndex = currentAlbum.songs.length - 1;
+         currentlyPlayingSongNumber = songIndex + 1;
+     }
+     else {
+         if (lastSongNumber == currentAlbum.songs.length + 1) {
+             lastSongNumber = currentlyPlayingSongNumber;
+         }
+         else {
+             lastSongNumber--;
+         }
+         songIndex--;
+         currentlyPlayingSongNumber--;
+     }
+     
+     currentSongFromAlbum = currentAlbum.songs[songIndex];
+     updatePlayerBarSong();
+     
+     var previouslyPlayingSongElement = $('.song-item-number[data-song-number="' + (lastSongNumber) + '"]');
+     previouslyPlayingSongElement.html(lastSongNumber);
+     var currentlyPlayingSongElement = $('.song-item-number[data-song-number="' + (currentlyPlayingSongNumber) + '"]');
+     currentlyPlayingSongElement.html(pauseButtonTemplate);
+ };
 
  var playButtonTemplate = '<a class="album-song-button"><span class="ion-play"></span></a>';
  var pauseButtonTemplate = '<a class="album-song-button"><span class="ion-pause"></span></a>';
@@ -143,9 +172,13 @@ Update the HTML of the new song's .song-item-number element with a pause button.
  var currentAlbum = null;
  var currentlyPlayingSongNumber = null;
  var currentSongFromAlbum = null;
-
+ 
+ var $previousButton = $('.main-controls .previous');
+ var $nextButton = $('.main-controls .next');
 
  $(document).ready(function() {
      setCurrentAlbum(albumPicasso);
+     $previousButton.click(previousSong);
+     $nextButton.click(nextSong);
  });
 
