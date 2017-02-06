@@ -107,13 +107,20 @@ Update the HTML of the new song's .song-item-number element with a pause button.
 
  var nextSong = function() {
      var songIndex = trackIndex(currentAlbum, currentSongFromAlbum);
-     var previousSongObject = currentSongFromAlbum;
+     var lastSongNumber = currentlyPlayingSongNumber - 1;
      
      if (songIndex >= currentAlbum.songs.length - 1) {
+         lastSongNumber = currentAlbum.songs.length;
          songIndex = 0;
-         currentlyPlayingSongNumber = 1;
+         currentlyPlayingSongNumber = songIndex + 1;
      }
      else {
+         if (lastSongNumber == currentAlbum.songs.length + 1) {
+             lastSongNumber = currentlyPlayingSongNumber - 1;
+         }
+         else {
+             lastSongNumber++;
+         }
          songIndex++;
          currentlyPlayingSongNumber++;
      }
@@ -121,8 +128,8 @@ Update the HTML of the new song's .song-item-number element with a pause button.
      currentSongFromAlbum = currentAlbum.songs[songIndex];
      updatePlayerBarSong();
      
-     var previouslyPlayingSongElement = $('.song-item-number[data-song-number="' + (songIndex) + '"]');
-     previouslyPlayingSongElement.html(songIndex);
+     var previouslyPlayingSongElement = $('.song-item-number[data-song-number="' + (lastSongNumber) + '"]');
+     previouslyPlayingSongElement.html(lastSongNumber);
      var currentlyPlayingSongElement = $('.song-item-number[data-song-number="' + (currentlyPlayingSongNumber) + '"]');
      currentlyPlayingSongElement.html(pauseButtonTemplate);
  };
